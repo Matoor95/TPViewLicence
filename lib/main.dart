@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tpview/screens/home.dart';
+import 'package:tpview/screens/register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,6 +57,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  void _oneItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -82,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(10),
                 child: Column(
                   children: [
-                   Image.asset("assets/osbt.png"),
+                    Image.asset("assets/osbt.png"),
                     // Image.network(
                     //     "https://osbt.ma/storage/2021/09/cropped-logo-osbt-omnia_small.png"),
                     SizedBox(
@@ -125,7 +133,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           backgroundColor: Theme.of(context).primaryColor,
                         ),
                         onPressed: () => {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage()))
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomePage()))
                         },
                         child: Text(
                           'Login',
@@ -143,7 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent,
                         ),
-                        onPressed: () => {},
+                        onPressed: () => {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const Register()))
+                        },
                         child: Text(
                           'S\'inscrire',
                           style: TextStyle(
@@ -158,6 +171,22 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+
+      bottomNavigationBar:
+          BottomNavigationBar(items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: "login",
+        ),
+      ],
+      currentIndex:_selectedIndex,
+      selectedItemColor: Colors.teal,
+      unselectedItemColor: Colors.grey,
+      onTap:_oneItemTapped,
+
+      ),
+      
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
